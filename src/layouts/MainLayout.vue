@@ -9,7 +9,7 @@
           </q-btn>
         </q-toolbar-title>
         <div v-if="isLoggedIn">
-          <div>logged in</div>
+          <div>{{currentUser.nickname}}</div>
           <!-- avatar -->
         </div>
         <div v-else>

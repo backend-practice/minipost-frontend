@@ -2,15 +2,13 @@
   <q-page class="flex flex-center">
     <q-form
       @submit="onRegister"
-      @reset="onReset"
       class="column q-gutter-lg register-form"
     >
-      <!--      style="width: 80%;max-width: 500px"-->
       <q-input
         v-model="username"
         :label="$t('username')"
         stack-label
-        :error-message="errorMessages.username&&errorMessages.username.join('\n')"
+        :error-message="errorMessages.username && errorMessages.username.join('\n')"
         :error="Boolean(errorMessages.username)"
         outlined
       />
@@ -19,7 +17,7 @@
         v-model="password"
         :label="$t('password')"
         stack-label
-        :error-message="errorMessages.password&&errorMessages.password.join('\n')"
+        :error-message="errorMessages.password && errorMessages.password.join('\n')"
         :error="Boolean(errorMessages.password)"
         outlined
       />
@@ -27,7 +25,7 @@
         v-model="nickname"
         :label="$t('nickname')"
         stack-label
-        :error-message="errorMessages.nickname&&errorMessages.nickname.join('\n')"
+        :error-message="errorMessages.nickname && errorMessages.nickname.join('\n')"
         :error="Boolean(errorMessages.nickname)"
         outlined
       />
@@ -37,7 +35,7 @@
         emit-value
         map-options
         :label="$t('gender')"
-        :error-message="errorMessages.gender&&errorMessages.gender.join('\n')"
+        :error-message="errorMessages.gender && errorMessages.gender.join('\n')"
         :error="Boolean(errorMessages.gender)"
         outlined
       />
