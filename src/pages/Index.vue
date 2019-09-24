@@ -9,6 +9,15 @@
 
 <script>
 export default {
-  name: 'PageIndex'
+  name: 'PageIndex',
+  mounted () {
+    this.$axios.get('/posts/')
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
 }
 </script>

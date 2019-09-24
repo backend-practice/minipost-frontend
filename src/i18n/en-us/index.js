@@ -3,5 +3,8 @@
 
 export default {
   failed: 'Action failed',
-  success: 'Action was successful'
+  success: 'Action was successful',
+
+  signUp: 'Sign Up',
+  login: 'Login'
 }
