@@ -6,5 +6,13 @@ export default {
   success: 'Action was successful',
 
   signUp: 'Sign Up',
-  login: 'Login'
+  login: 'Login',
+  username: 'Username',
+  password: 'Password',
+  nickname: 'Nickname',
+  gender: 'Gender',
+  unknown: 'Unknown',
+  male: 'Male',
+  female: 'Female',
+  register: 'Register'
 }
