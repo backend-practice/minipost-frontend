@@ -43,20 +43,41 @@
         </q-tabs>
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="miniPosts">
-            <mini-post
-              v-for="(post,index) in posts"
-              :key="post.id"
-              :mini-post="post"
-              @toggle-like="toggleLike(index)"
-            />
+            <q-infinite-scroll @load="onLoadPosts" :offset="250">
+              <mini-post
+                v-for="(post,index) in posts"
+                :key="post.id"
+                :mini-post="post"
+                @toggle-like="toggleLike(index)"
+              />
+              <template v-slot:loading>
+                <div class="row justify-center q-my-md">
+                  <q-spinner-dots color="primary" size="40px"/>
+                </div>
+              </template>
+            </q-infinite-scroll>
           </q-tab-panel>
 
           <q-tab-panel name="following">
-            <div class="text-h6">Following</div>
+            <q-infinite-scroll @load="onLoadFollowing" :offset="250">
+              <user-info v-for="user in following" :key="user.id" :user="user"/>
+              <template v-slot:loading>
+                <div class="row justify-center q-my-md">
+                  <q-spinner-dots color="primary" size="40px"/>
+                </div>
+              </template>
+            </q-infinite-scroll>
           </q-tab-panel>
 
           <q-tab-panel name="followers">
-            <div class="text-h6">Followers</div>
+            <q-infinite-scroll @load="onLoadFollowers" :offset="250">
+              <user-info v-for="user in followers" :key="user.id" :user="user"/>
+              <template v-slot:loading>
+                <div class="row justify-center q-my-md">
+                  <q-spinner-dots color="primary" size="40px"/>
+                </div>
+              </template>
+            </q-infinite-scroll>
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -66,10 +87,11 @@
 
 <script>
 import MiniPost from '../components/MiniPost'
+import UserInfo from '../components/UserInfo'
 
 export default {
   name: 'UserProfile',
-  components: { MiniPost },
+  components: { UserInfo, MiniPost },
   props: {
     id: Number
   },
@@ -92,17 +114,10 @@ export default {
       .catch(error => {
         console.log(error)
       })
-    this.$axios.get('/users/' + this.id + '/posts/')
-      .then(response => {
-        this.posts = response.data.results
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
   },
   methods: {
     toggleLike (index) {
+      // TODO: 先更新点赞状态，再调用接口，如失败则恢复状态
       let post = this.posts[index]
       if (post.is_liked) {
         this.$axios.delete('/posts/' + post.id + '/like/')
@@ -125,6 +140,57 @@ export default {
             console.log(error)
           })
       }
+    },
+    onLoadPosts (index, done) {
+      console.log('loading posts, index ' + index)
+      this.$axios.get('/users/' + this.id + '/posts/', {
+        params: {
+          offset: this.posts.length
+        }
+      })
+        .then(response => {
+          this.posts.push(...response.data.results)
+          done(this.posts.length >= response.data.count)
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+          done()
+        })
+    },
+    onLoadFollowing (index, done) {
+      console.log('loading following, index ' + index)
+      this.$axios.get('/users/' + this.id + '/following/', {
+        params: {
+          offset: this.following.length
+        }
+      })
+        .then(response => {
+          this.following.push(...response.data.results)
+          done(this.following.length >= response.data.count)
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+          done()
+        })
+    },
+    onLoadFollowers (index, done) {
+      console.log('loading followers, index ' + index)
+      this.$axios.get('/users/' + this.id + '/followers/', {
+        params: {
+          offset: this.followers.length
+        }
+      })
+        .then(response => {
+          this.followers.push(...response.data.results)
+          done(this.followers.length >= response.data.count)
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+          done()
+        })
     }
   }
 }
