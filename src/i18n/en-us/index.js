@@ -14,5 +14,9 @@ export default {
   unknown: 'Unknown',
   male: 'Male',
   female: 'Female',
-  register: 'Register'
+  register: 'Register',
+
+  miniPosts: 'MiniPosts',
+  following: 'Following',
+  followers: 'Followers'
 }

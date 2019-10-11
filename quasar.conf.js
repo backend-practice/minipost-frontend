@@ -15,7 +15,7 @@ module.exports = function (ctx) {
     ],
 
     extras: [
-      // 'ionicons-v4',
+      'ionicons-v4',
       // 'mdi-v3',
       // 'fontawesome-v5',
       // 'eva-icons',
@@ -23,6 +23,7 @@ module.exports = function (ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
+      'material-icons-outlined', // optional, you are not bound to it
       'material-icons' // optional, you are not bound to it
     ],
 

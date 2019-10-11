@@ -11,5 +11,9 @@ export default {
   unknown: '未知',
   male: '男',
   female: '女',
-  register: '注册'
+  register: '注册',
+
+  miniPosts: 'MiniPosts',
+  following: '关注',
+  followers: '粉丝'
 }

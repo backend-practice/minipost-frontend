@@ -2,6 +2,8 @@
 
 A Mini Post App
 
+[![Build Status](https://travis-ci.org/backend-practice/minipost-frontend.svg?branch=master)](https://travis-ci.org/backend-practice/minipost-frontend)
+
 ## Install the dependencies
 ```bash
 npm install
