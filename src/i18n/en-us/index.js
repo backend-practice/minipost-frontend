@@ -24,5 +24,9 @@ export default {
   feed: 'Feed',
 
   noRecentMiniPosts: 'No Recent MiniPosts',
-  noFeedMiniPosts: 'No Feed MiniPosts'
+  noFeedMiniPosts: 'No Feed MiniPosts',
+
+  newPostPlaceholder: 'Post something',
+  publish: 'Publish',
+  publishSucceeded: 'Publish Succeeded'
 }

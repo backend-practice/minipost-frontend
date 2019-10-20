@@ -21,5 +21,9 @@ export default {
   feed: '关注',
 
   noRecentMiniPosts: '没有最近的MiniPosts',
-  noFeedMiniPosts: '没有MiniPosts，请登录或关注其他用户'
+  noFeedMiniPosts: '没有MiniPosts，请登录或关注其他用户',
+
+  newPostPlaceholder: '发布点什么吧',
+  publish: '发布',
+  publishSucceeded: '发布成功'
 }

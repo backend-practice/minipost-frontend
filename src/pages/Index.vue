@@ -1,7 +1,29 @@
 <template>
   <q-page class="index">
     <div class="flex flex-center q-my-lg">
-      <div class="tabs-container col-grow">
+      <div class="content-container col-grow q-gutter-lg">
+
+        <q-card class="q-pa-md">
+          <q-input
+            v-model="newPost"
+            :placeholder="$t('newPostPlaceholder')"
+            :error-message="contentErrorMessage"
+            :error="Boolean(contentErrorMessage)"
+            type="textarea"
+            outlined
+            autogrow
+          />
+          <div class="flex justify-between">
+            <q-chip>
+              <q-avatar>
+                <img :src="currentUser.avatar||require('assets/minipost-icon.svg')" class="bg-grey-3 q-pa-xs">
+              </q-avatar>
+              <span class="q-mx-sm">{{currentUser.nickname}}</span>
+            </q-chip>
+            <q-btn :label="$t('publish')" icon="ion-ios-send" color="primary" class="q-px-xl" @click="publishPost"/>
+          </div>
+        </q-card>
+
         <q-tabs
           v-model="tab"
           class="text-grey-7 self-stretch"
@@ -65,6 +87,7 @@
 </style>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 import MiniPost from '../components/MiniPost'
 
 export default {
@@ -72,10 +95,20 @@ export default {
   components: { MiniPost },
   data () {
     return {
+      newPost: '',
+      contentErrorMessage: '',
       tab: 'recent',
       recentPosts: [],
       feedPosts: []
     }
+  },
+  computed: {
+    ...mapState('auth', [
+      'currentUser'
+    ]),
+    ...mapGetters('auth', [
+      'isLoggedIn'
+    ])
   },
   mounted () {
     this.$axios.get('/posts/')
@@ -151,13 +184,42 @@ export default {
             console.log(error)
           })
       }
+    },
+    publishPost () {
+      console.log('publish post')
+      this.$axios.post('/posts/', {
+        content: this.newPost
+      })
+        .then(response => {
+          this.recentPosts.unshift(0, response.data)
+          this.$q.notify({
+            message: this.$t('publishSucceeded'),
+            position: 'center',
+            color: 'positive',
+            timeout: 1000
+          })
+          this.newPost = ''
+          console.log(response)
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 400) {
+            console.log(error.response.data['content'].join('\n'))
+            this.contentErrorMessage = error.response.data.content.join('\n')
+          }
+          console.log(error)
+        })
+    }
+  },
+  watch: {
+    newPost () {
+      this.contentErrorMessage = ''
     }
   }
 }
 </script>
 
 <style scoped>
-  .tabs-container {
+  .content-container {
     max-width: 800px;
   }
 </style>
