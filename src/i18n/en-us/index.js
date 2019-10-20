@@ -18,5 +18,11 @@ export default {
 
   miniPosts: 'MiniPosts',
   following: 'Following',
-  followers: 'Followers'
+  followers: 'Followers',
+
+  recent: 'Recent',
+  feed: 'Feed',
+
+  noRecentMiniPosts: 'No Recent MiniPosts',
+  noFeedMiniPosts: 'No Feed MiniPosts'
 }

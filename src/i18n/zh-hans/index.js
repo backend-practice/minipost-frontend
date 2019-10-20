@@ -15,5 +15,11 @@ export default {
 
   miniPosts: 'MiniPosts',
   following: '关注',
-  followers: '粉丝'
+  followers: '粉丝',
+
+  recent: '最近',
+  feed: '关注',
+
+  noRecentMiniPosts: '没有最近的MiniPosts',
+  noFeedMiniPosts: '没有MiniPosts，请登录或关注其他用户'
 }
