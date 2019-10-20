@@ -105,17 +105,28 @@ export default {
     }
   },
   created () {
-    console.log(this.id)
-    this.$axios.get('/users/' + this.id + '/')
-      .then(response => {
-        this.user = response.data
-        console.log(response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    this.loadUser(this.id)
+  },
+  beforeRouteUpdate (to, from, next) {
+    this.tab = 'miniPosts'
+    this.posts = []
+    this.following = []
+    this.followers = []
+    this.user = {}
+    this.loadUser(to.params.id)
+    next()
   },
   methods: {
+    loadUser (id) {
+      this.$axios.get('/users/' + id + '/')
+        .then(response => {
+          this.user = response.data
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
     toggleLike (index) {
       // TODO: 先更新点赞状态，再调用接口，如失败则恢复状态
       let post = this.posts[index]

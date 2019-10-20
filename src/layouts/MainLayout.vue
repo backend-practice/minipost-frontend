@@ -9,7 +9,7 @@
           </q-btn>
         </q-toolbar-title>
         <div v-if="isLoggedIn">
-          <div>{{currentUser.nickname}}</div>
+          <div @click="goUserProfile">{{currentUser.nickname}}</div>
           <!-- avatar -->
         </div>
         <div v-else>
@@ -40,6 +40,14 @@ export default {
     ...mapGetters('auth', [
       'isLoggedIn'
     ])
+  },
+  methods: {
+    goUserProfile () {
+      let path = '/u/' + this.currentUser.id
+      if (this.$route.path !== path) {
+        this.$router.push(path)
+      }
+    }
   }
 }
 </script>

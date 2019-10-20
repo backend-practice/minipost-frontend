@@ -1,6 +1,6 @@
 <template>
   <q-card class="user-info q-ma-lg q-pa-sm row q-gutter-x-md ">
-    <div>
+    <div @click="goUserProfile">
       <!-- avatar必须包含在div中，否则q-card会导致avatar圆角消失 -->
       <q-avatar size="80px">
         <img :src="user.avatar||require('assets/minipost-icon.svg')" class="bg-grey-3 q-pa-xs">
@@ -9,7 +9,7 @@
 
     <div class="column justify-around col-grow items-start">
       <div class="row flex-center text-body1">
-        <span class="q-mx-xs">{{user.nickname}}</span>
+        <span class="q-mx-xs" @click="goUserProfile">{{user.nickname}}</span>
         <q-icon name="ion-male" class="text-blue-4" v-if="user.gender===1"/>
         <q-icon name="ion-female" class="text-pink-4" v-else-if="user.gender===2"/>
       </div>
@@ -36,6 +36,15 @@ export default {
   },
   data () {
     return {}
+  },
+  methods: {
+    goUserProfile () {
+      let path = '/u/' + this.user.id
+      console.log(path)
+      if (this.$route.path !== path) {
+        this.$router.push(path)
+      }
+    }
   }
 }
 </script>

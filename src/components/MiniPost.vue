@@ -1,12 +1,7 @@
 <template>
   <q-card class="mini-post q-my-lg q-px-md q-pb-md q-gutter-y-md column">
     <div class="row flex-center">
-      <q-chip>
-        <q-avatar>
-          <img :src="miniPost.owner.avatar||require('assets/minipost-icon.svg')" class="bg-grey-3 q-pa-xs">
-        </q-avatar>
-        {{miniPost.owner.nickname}}
-      </q-chip>
+      <user-chip :user="miniPost.owner"/>
       <div class="col-grow text-right">{{timeCreated}}</div>
     </div>
     <div class="post-content text-body1">
@@ -59,8 +54,11 @@
 </template>
 
 <script>
+import UserChip from './UserChip'
+
 export default {
   name: 'MiniPost',
+  components: { UserChip },
   props: {
     miniPost: Object
   },

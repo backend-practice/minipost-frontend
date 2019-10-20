@@ -14,12 +14,7 @@
             autogrow
           />
           <div class="flex justify-between">
-            <q-chip>
-              <q-avatar>
-                <img :src="currentUser.avatar||require('assets/minipost-icon.svg')" class="bg-grey-3 q-pa-xs">
-              </q-avatar>
-              <span class="q-mx-sm">{{currentUser.nickname}}</span>
-            </q-chip>
+            <user-chip :user="currentUser"/>
             <q-btn :label="$t('publish')" icon="ion-ios-send" color="primary" class="q-px-xl" @click="publishPost"/>
           </div>
         </q-card>
@@ -89,10 +84,11 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import MiniPost from '../components/MiniPost'
+import UserChip from '../components/UserChip'
 
 export default {
   name: 'PageIndex',
-  components: { MiniPost },
+  components: { UserChip, MiniPost },
   data () {
     return {
       newPost: '',
