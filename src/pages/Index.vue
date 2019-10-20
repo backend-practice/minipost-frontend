@@ -187,7 +187,7 @@ export default {
         content: this.newPost
       })
         .then(response => {
-          this.recentPosts.unshift(0, response.data)
+          this.recentPosts.unshift(response.data)
           this.$q.notify({
             message: this.$t('publishSucceeded'),
             position: 'center',
